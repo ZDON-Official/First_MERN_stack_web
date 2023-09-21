@@ -4,11 +4,15 @@ const express = require("express");
 
 const app = express();
 
-const port = 4000;
+// Middleware
+app.use((request, response, next) => {
+  console.log(request.path, request.method);
+  next();
+});
 
 // Listen for requests
 app.listen(process.env.PORT, () => {
-  console.log(`listening on port ${PORT}!!`);
+  console.log(`listening on port ${process.env.PORT}!!`);
 });
 
 // Routes
