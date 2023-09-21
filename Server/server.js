@@ -19,4 +19,4 @@ app.listen(process.env.PORT, () => {
 });
 
 // Routes
-app.use("/api/workout", workout_routes);
+app.use("/api/workouts", workout_routes);
