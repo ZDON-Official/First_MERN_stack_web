@@ -6,18 +6,21 @@ const WorkoutSchema = new Schema(
   {
     title: {
       type: String,
-      require: true,
+      required: true,
     },
     reps: {
       type: Number,
-      require: true,
+      required: true,
     },
     load: {
       type: Number,
-      require: true,
+      required: true,
     },
   },
   {
     timestamps: true,
   }
 );
+
+// Export the schema as a workout model
+module.exports = mongoose.model("Workout", WorkoutSchema);
