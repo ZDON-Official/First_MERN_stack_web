@@ -43,11 +43,49 @@ const createWorkout = async (req, res) => {
 };
 
 // delete a workout
+const deleteWorkout = async (req, res) => {
+  // get the id of the workout
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Invalid ID" });
+  }
+
+  const workout = await Workout.findOneAndDelete({ _id: id });
+
+  if (!workout) {
+    res.status(404).json({ error: "Workout not found" });
+  }
+
+  res.status(200).json(workout);
+};
 
 // update a workout
+const updateWorkout = async (req, res) => {
+  // get the id of the workout
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "Invalid ID" });
+  }
 
+  const workout = await Workout.findOneAndUpdate(
+    { _id: id },
+    {
+      ...req.body, // learn more about javascript ellipsis
+    }
+  );
+
+  if (!workout) {
+    res.status(404).json({ error: "Workout not found" });
+  }
+
+  res.status(200).json(workout);
+};
+
+// export the functions
 module.exports = {
   getWorkouts,
   getWorkout,
   createWorkout,
+  deleteWorkout,
+  updateWorkout,
 };
