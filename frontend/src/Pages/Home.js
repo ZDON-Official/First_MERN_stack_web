@@ -1,9 +1,34 @@
-const home = () => {
+import { useEffect, useState } from "react";
+
+// components
+import WorkoutDetails from "../Components/workout_details";
+
+const Home = () => {
+  const [workouts, setWorkouts] = useState(null);
+
+  useEffect(() => {
+    const fetchWorkouts = async () => {
+      const response = await fetch("/api/workouts"); // fetch from the local server
+      const json = await response.json();
+
+      if (response.ok) {
+        setWorkouts(json);
+      }
+    };
+
+    fetchWorkouts();
+  }, []);
+
   return (
     <div className="home">
-      <h1>Home</h1>
+      <div className="workouts">
+        {workouts &&
+          workouts.map((workout) => (
+            <WorkoutDetails key={workout._id} workout={workout} />
+          ))}
+      </div>
     </div>
   );
 };
 
-export default home;
+export default Home;
